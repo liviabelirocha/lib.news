@@ -9,7 +9,6 @@ import { stripe } from "../services/stripe";
 
 interface HomeProps {
   product: {
-    priceId: string;
     amount: number;
   };
 }
@@ -32,7 +31,7 @@ export default function Home({ product }: HomeProps) {
             <span>for {product.amount} month</span>
           </p>
 
-          <SubscribeButton priceId={product.priceId} />
+          <SubscribeButton />
         </section>
 
         <img src="/images/avatar.svg" alt="girl coding" />
@@ -45,7 +44,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve("price_1K1XwZC9627s8ysgNwlmKTsL");
 
   const product = {
-    priceId: price.id,
     amount: new Intl.NumberFormat("pt-br", {
       style: "currency",
       currency: "BRL",
