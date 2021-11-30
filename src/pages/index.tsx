@@ -6,7 +6,6 @@ export default function Home() {
       <Head>
         <title>Início | lib.news</title>
       </Head>
-      <h1>Hello world!</h1>
     </>
   );
 }
