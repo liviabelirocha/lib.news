@@ -75,6 +75,4 @@ export const getServerSideProps: GetServerSideProps = async ({
       post,
     },
   };
-
-  //if (!session)
 };
