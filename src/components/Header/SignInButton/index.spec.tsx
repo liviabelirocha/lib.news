@@ -1,9 +1,9 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { faker } from "@faker-js/faker";
 import { cleanup, render, screen } from "@testing-library/react";
-import { SignInButton } from "./";
+import { afterEach, describe, expect, it } from "vitest";
 import { Provider as NextAuthProvider } from "next-auth/client";
 
-import { faker } from "@faker-js/faker";
+import { SignInButton } from "./";
 
 describe("SignIn Button", () => {
   afterEach(() => {
