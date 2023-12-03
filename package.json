@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@prismicio/client": "^5.1.0",
@@ -27,6 +29,7 @@
     "@types/node": "^16.11.11",
     "@types/prismic-dom": "^2.1.1",
     "@types/react": "^17.0.37",
+    "cypress": "^13.6.0",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
     "typescript": "^4.5.2"
