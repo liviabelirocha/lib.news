@@ -27,7 +27,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
     if (session?.activeSubscription) {
       router.push(`/posts/${post.slug}`);
     }
-  }, [session]);
+  }, [session, router, post]);
 
   return (
     <>
@@ -67,6 +67,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const prismic = getPrismicClient();
   const response = await prismic.getByUID("post", String(slug), {});
+
+  if (!response) {
+    return {
+      redirect: {
+        permanent: true,
+        destination: `/posts/not-found?slug=${slug}`,
+      }
+    }
+  }
 
   const post = {
     slug,
