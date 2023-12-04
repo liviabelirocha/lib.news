@@ -25,8 +25,7 @@ const relevantEvents = new Set([
   "customer.subscription.updated",
   "customer.subscription.deleted",
 ]);
-
-export default async (request: NextApiRequest, response: NextApiResponse) => {
+const webhook = async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method === "POST") {
     const buff = await buffer(request);
 
@@ -41,6 +40,7 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
         process.env.STRIPE_WEBHOOK_SECRET
       );
     } catch (err) {
+      console.error(err);
       return response.status(400).send(`Webhook error ${err.message}`);
     }
 
@@ -85,3 +85,5 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(405).end("Method not allowed");
   }
 };
+
+export default webhook;
