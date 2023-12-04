@@ -7,7 +7,9 @@
 .posts {
   max-width: 720px;
   margin: 5rem auto 0;
+}
 
+.postList {
   a {
     display: block;
 
@@ -41,5 +43,19 @@
     &:hover strong {
       color: var(--yellow-500);
     }
+  }
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+  gap: 2rem;
+
+  a {
+    &:hover {
+      color: var(--yellow-500);
+    }
+
   }
 }

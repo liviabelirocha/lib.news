@@ -16,5 +16,5 @@ describe("CT012 - Logout", () => {
     cy.get('.styles_signInButton__06aMU').click();
 
     cy.get('.styles_signInButton__06aMU').should('contain.text', 'Sign in with GitHub');
-  })
+  });
 })

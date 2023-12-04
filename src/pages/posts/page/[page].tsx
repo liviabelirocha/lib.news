@@ -1,12 +1,13 @@
-import { GetStaticProps } from "next";
+import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
 import Prismic from "@prismicio/client";
 import { RichText } from "prismic-dom";
 
-import { getPrismicClient } from "../../services/prismic";
+import { getPrismicClient } from "../../../services/prismic";
 
-import styles from "../../styles/posts.module.scss";
+import styles from "../../../styles/posts.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 type Post = {
   slug: string;
@@ -22,6 +23,11 @@ interface PostsProps {
 const SIZE = 10;
 
 export default function Posts({ posts }: PostsProps) {
+  const router = useRouter();
+
+  const { page } = router.query;
+
+  const nextPageHref = `/posts/page/${Number(page) + 1}`;
   const hasNextPage = posts.length >= SIZE;
   const slicedPosts = posts.slice(0, SIZE);
 
@@ -46,7 +52,8 @@ export default function Posts({ posts }: PostsProps) {
           </div>
 
           <div className={styles.page}>
-            {hasNextPage && <Link href="/posts/page/2">Próximo</Link>}
+            <Link href="/posts">Anterior</Link>
+            {hasNextPage && <Link href={nextPageHref}>Próximo</Link>}
           </div>
         </div>
       </main>
@@ -54,12 +61,23 @@ export default function Posts({ posts }: PostsProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { page } = params;
+
+  console.log(page);
+
   const prismic = getPrismicClient();
 
   const response = await prismic.query(
     [Prismic.predicates.at("document.type", "post")],
-    { fetch: ["post.title", "post.content"], page: 1, pageSize: SIZE }
+    { fetch: ["post.title", "post.content"], page: Number(page), pageSize: SIZE }
   );
 
   const posts = response.results.map((post) => {

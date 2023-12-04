@@ -8,4 +8,11 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     testIsolation: false,
   },
+
+  component: {
+    devServer: {
+      framework: "next",
+      bundler: "webpack",
+    },
+  },
 });
