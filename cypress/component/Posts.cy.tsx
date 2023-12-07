@@ -34,7 +34,7 @@ const postsC004: Post[] = [
     title: `Post 11`,
     excerpt: "Lorem ipsum dolor sit amet.",
     updatedAt: "01 de dezembro de 2021",
-  }
+  },
 ];
 
 describe("CT001 - Visualização de postagens", () => {
@@ -42,12 +42,17 @@ describe("CT001 - Visualização de postagens", () => {
     cy.mount(<PostsPage posts={postsC001} />);
 
     cy.get("strong").should("have.length", 1);
+    cy.get("a").should(
+      "include.attr",
+      "href",
+      "/posts/preview/como-renomear-varios-arquivos-de-uma-vez-usando-o-terminal"
+    );
   });
 
   it("C002 - Validar lista de postagens vazia", () => {
     cy.mount(<PostsPage posts={[]} />);
 
-    cy.get("strong").should("not.exist");
+    cy.contains("Ainda não foram publicadas postagens").should("exist");
   });
 
   it("C003 - Validar lista de postagens com dez postagens", () => {
@@ -57,8 +62,9 @@ describe("CT001 - Visualização de postagens", () => {
   });
 
   it("C004 - Validar onze postagens", () => {
-    cy.mount(<PostsPage posts={postsC004} />)
+    cy.mount(<PostsPage posts={postsC004} />);
 
-    cy.get('.posts_page__X4UrG > a').should('exist');
-  })
+    cy.get(".posts_page__X4UrG > a").should("exist");
+    cy.get("strong").should("have.length", 10);
+  });
 });
